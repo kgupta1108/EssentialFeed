@@ -18,6 +18,7 @@
 		FADD0865266960EE0066A8EA /* RemoteFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD0864266960EE0066A8EA /* RemoteFeedLoader.swift */; };
 		FADD086D266961310066A8EA /* RemoteFeedLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD086C266961310066A8EA /* RemoteFeedLoaderTests.swift */; };
 		FADD0A1B266AC7980066A8EA /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD0A1A266AC7980066A8EA /* FeedItem.swift */; };
+		FADD0A20266B59680066A8EA /* RemoteFeedLoaderLearningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD0A1F266B59680066A8EA /* RemoteFeedLoaderLearningTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		FADD0864266960EE0066A8EA /* RemoteFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoader.swift; sourceTree = "<group>"; };
 		FADD086C266961310066A8EA /* RemoteFeedLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoaderTests.swift; sourceTree = "<group>"; };
 		FADD0A1A266AC7980066A8EA /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
+		FADD0A1F266B59680066A8EA /* RemoteFeedLoaderLearningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoaderLearningTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				FADD0846266960540066A8EA /* EssentialFeedTests.swift */,
 				FADD0848266960540066A8EA /* Info.plist */,
 				FADD086C266961310066A8EA /* RemoteFeedLoaderTests.swift */,
+				FADD0A1F266B59680066A8EA /* RemoteFeedLoaderLearningTests.swift */,
 			);
 			path = EssentialFeedTests;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 			files = (
 				FADD086D266961310066A8EA /* RemoteFeedLoaderTests.swift in Sources */,
 				FADD0847266960540066A8EA /* EssentialFeedTests.swift in Sources */,
+				FADD0A20266B59680066A8EA /* RemoteFeedLoaderLearningTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
