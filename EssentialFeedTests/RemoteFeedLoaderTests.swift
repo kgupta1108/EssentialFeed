@@ -54,11 +54,12 @@ class RemoteFeedLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
         samples.enumerated().forEach { (index, code) in
             expect(sut: sut, toCompleteWithResult: .failure(.invalidData)) {
-                client.complete(withStatusCode: code, index: index)
+                let json = makeItemsJSON(items: [])
+                client.complete(withStatusCode: code, data: json, index: index)
             }
         }
     }
-    
+     
     func test_load_deliversErrorOnNon200HTTPResponseWithInvalidJson() {
         let url = URL(string: "https://a-given-url.com")!
         let (sut, client) = makeSUT(url: url)
@@ -79,17 +80,26 @@ class RemoteFeedLoaderTests: XCTestCase {
         }
     }
     
-    func test_load_deliversNoItemsOn200HTTPResponseWithNonEmptyList() {
-        let url = URL(string: "https://a-given-url.com")!
-        let (sut, client) = makeSUT(url: url)
-        
-        let item1 = makeItem(id: UUID(), imageURL: URL(string: "http://a-url.com")!)
-        let item2 = makeItem(id: UUID(), description: "a description", location: "a location", imageURL: URL(string: "http://another-url.com")!)
-        expect(sut: sut, toCompleteWithResult: .success([item1.model, item2.model])) {
+    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
+            let (sut, client) = makeSUT()
+
+            let item1 = makeItem(
+                id: UUID(),
+                imageURL: URL(string: "http://a-url.com")!)
+
+            let item2 = makeItem(
+                id: UUID(),
+                description: "a description",
+                location: "a location",
+                imageURL: URL(string: "http://another-url.com")!)
+
+            let items = [item1.model, item2.model]
+
+        expect(sut: sut, toCompleteWithResult: RemoteFeedLoader.Result.success(items), action: {
             let json = makeItemsJSON(items: [item1.json, item2.json])
-            client.complete(withStatusCode: 200, data: json)
+                client.complete(withStatusCode: 200, data: json)
+            })
         }
-    }
 
     // MARK: - Helpers
     
@@ -144,7 +154,7 @@ class RemoteFeedLoaderTests: XCTestCase {
             messages[index].completion(Result.failure(error))
         }
         
-        func complete(withStatusCode code: Int, data: Data = Data(), index: Int = 0) {
+        func complete(withStatusCode code: Int, data: Data, index: Int = 0) {
             let response = HTTPURLResponse(url: requestedURLs[index ], statusCode: code, httpVersion: nil, headerFields: nil)!
             messages[index].completion(Result.success(data, response))
         }
