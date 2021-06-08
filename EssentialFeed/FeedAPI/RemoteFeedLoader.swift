@@ -56,7 +56,7 @@ private struct Root: Decodable {
 }
 
 private struct Item: Decodable {
-    let id: UUID
+    let id: String
     let description: String?
     let location: String?
     let image: URL

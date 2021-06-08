@@ -80,26 +80,26 @@ class RemoteFeedLoaderTests: XCTestCase {
         }
     }
     
-//    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
-//            let (sut, client) = makeSUT()
-//
-//            let item1 = makeItem(
-//                id: UUID(),
-//                imageURL: URL(string: "http://a-url.com")!)
-//
-//            let item2 = makeItem(
-//                id: UUID(),
-//                description: "a description",
-//                location: "a location",
-//                imageURL: URL(string: "http://another-url.com")!)
-//
-//            let items = [item1.model, item2.model]
-//
-//        expect(sut: sut, toCompleteWithResult: RemoteFeedLoader.Result.success(items), action: {
-//            let json = makeItemsJSON(items: [item1.json, item2.json])
-//                client.complete(withStatusCode: 200, data: json)
-//            })
-//        }
+    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
+            let (sut, client) = makeSUT()
+
+            let item1 = makeItem(
+                id: UUID().uuidString,
+                imageURL: URL(string: "http://a-url.com")!)
+
+            let item2 = makeItem(
+                id: UUID().uuidString,
+                description: "a description",
+                location: "a location",
+                imageURL: URL(string: "http://another-url.com")!)
+
+            let items = [item1.model, item2.model]
+
+        expect(sut: sut, toCompleteWithResult: RemoteFeedLoader.Result.success(items), action: {
+            let json = makeItemsJSON(items: [item1.json, item2.json])
+                client.complete(withStatusCode: 200, data: json)
+            })
+        }
 
     // MARK: - Helpers
     
@@ -109,12 +109,12 @@ class RemoteFeedLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func makeItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedItem, json: [String: Any]) {
+    private func makeItem(id: String, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedItem, json: [String: Any]) {
         let feedItem = FeedItem(id: id, description: description, location: location, imageURL: imageURL)
         let json = [
             "id": feedItem.id,
-            "description": feedItem.description ?? "",
-            "location": feedItem.location ?? "",
+            "description": feedItem.description,
+            "location": feedItem.location,
             "image": feedItem.imageURL.absoluteString
         ] as [String : Any]
         return (feedItem, json)
