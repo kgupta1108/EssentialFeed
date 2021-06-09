@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FABDE3492670E2CC003DEFE4 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABDE3482670E2CC003DEFE4 /* HTTPClient.swift */; };
 		FADD0830266960540066A8EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD082F266960540066A8EA /* AppDelegate.swift */; };
 		FADD0832266960540066A8EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD0831266960540066A8EA /* SceneDelegate.swift */; };
 		FADD0834266960540066A8EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD0833266960540066A8EA /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FABDE3482670E2CC003DEFE4 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		FADD082C266960540066A8EA /* EssentialFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FADD082F266960540066A8EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FADD0831266960540066A8EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				FADD0864266960EE0066A8EA /* RemoteFeedLoader.swift */,
+				FABDE3482670E2CC003DEFE4 /* HTTPClient.swift */,
 			);
 			path = FeedAPI;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			files = (
 				FADD0865266960EE0066A8EA /* RemoteFeedLoader.swift in Sources */,
 				FADD0834266960540066A8EA /* ViewController.swift in Sources */,
+				FABDE3492670E2CC003DEFE4 /* HTTPClient.swift in Sources */,
 				FADD0830266960540066A8EA /* AppDelegate.swift in Sources */,
 				FADD0A1B266AC7980066A8EA /* FeedItem.swift in Sources */,
 				FADD0832266960540066A8EA /* SceneDelegate.swift in Sources */,
