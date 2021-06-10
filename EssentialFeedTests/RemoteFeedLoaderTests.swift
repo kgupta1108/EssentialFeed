@@ -41,7 +41,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         let url = URL(string: "https://a-given-url.com")!
         let (sut, client) = makeSUT(url: url)
  
-        expect(sut: sut, toCompleteWithResult: .failure(RemoteFeedLoader.Error.connectivity)) {
+        expect(sut: sut, toCompleteWithResult: failure(.connectivity)) {
               let clientError = NSError(domain: "Test", code: 0, userInfo: nil)
             client.complete(with: clientError)
         }
@@ -53,7 +53,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         
         let samples = [199, 201, 300, 400, 500]
         samples.enumerated().forEach { (index, code) in
-            expect(sut: sut, toCompleteWithResult: .failure(RemoteFeedLoader.Error.invalidData)) {
+            expect(sut: sut, toCompleteWithResult: failure(.invalidData)) {
                 let json = makeItemsJSON(items: [])
                 client.complete(withStatusCode: code, data: json, index: index)
             }
@@ -64,7 +64,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         let url = URL(string: "https://a-given-url.com")!
         let (sut, client) = makeSUT(url: url)
         
-        expect(sut: sut, toCompleteWithResult: .failure(RemoteFeedLoader.Error.invalidData) ) {
+        expect(sut: sut, toCompleteWithResult: failure(.invalidData) ) {
             let invalidJson = Data(bytes: "Invalid JSON".utf8)
             client.complete(withStatusCode: 200, data: invalidJson)
         }
@@ -125,6 +125,10 @@ class RemoteFeedLoaderTests: XCTestCase {
         return (sut, client)
     }
     
+    private func failure(_ error: RemoteFeedLoader.Error) -> RemoteFeedLoader.Result {
+        return .failure(error)
+    }
+    
     private func checkForMemoryLeaks(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
         addTeardownBlock { [weak instance] in
             XCTAssertNil(instance, "Instance should have been deallocated. Potential Memory leak", file: file, line: line)
@@ -147,7 +151,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         return try! JSONSerialization.data(withJSONObject: json )
     }
     
-    private func expect(sut: RemoteFeedLoader, toCompleteWithResult expectedResult: RemoteFeedLoader.Result, action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+    private func  expect(sut: RemoteFeedLoader, toCompleteWithResult expectedResult: RemoteFeedLoader.Result, action: () -> Void, file: StaticString = #file, line: UInt = #line) {
         
         let exp = expectation(description: "wait for load completion")
         sut.load { (receivedResult) in
