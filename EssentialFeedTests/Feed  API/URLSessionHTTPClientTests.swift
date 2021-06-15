@@ -50,39 +50,35 @@ class URLSessionHTTPClientTests: XCTestCase {
     }
     
     func test_getFromURL_failsOnRequestError(){
-        let error = NSError.init(domain: "Any Error", code: 1)
-        URLProtocolStub.stub(data: nil, response: nil, error: error)
+        let requestError = NSError.init(domain: "Any Error", code: 1)
+        let receivedError = resultErrorFor(data: nil, response: nil, error: requestError)
+        XCTAssertEqual((receivedError as NSError?)?.domain, requestError.domain)
+    }
+    
+    func test_getFromURL_failsOnAllNilValues(){
+        XCTAssertNotNil(resultErrorFor(data: nil, response: nil, error: nil))
+    }
+    
+    //MARK: Helpers
+    
+    private func resultErrorFor(data: Data?, response: URLResponse?, error: Error?, file: StaticString = #file, line: UInt = #line) -> Error?  {
+        URLProtocolStub.stub(data: data, response: response, error: error)
         
         let exp = expectation(description: "Wait for completion")
+        
+        var receivedError: Error?
         makeSUT().get(from: anyUrl()) { result in
             switch result {
-            case let .failure(receivedError as NSError):
-                XCTAssertNotNil(receivedError)
+            case let .failure(error):
+                receivedError = error
             default:
                 XCTFail("received error \(error) got \(result) instead ")
             }
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1.0)
+        return receivedError
     }
-    
-    func test_getFromURL_failsOnAllNilValues(){
-        URLProtocolStub.stub(data: nil, response: nil, error: nil)
-        
-        let exp = expectation(description: "Wait for completion")
-        makeSUT().get(from: anyUrl()) { result in
-            switch result {
-            case .failure:
-                break
-            default:
-                XCTFail("received failure got \(result) instead ")
-            }
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
-    }
-    
-    //MARK: Helpers
     
     private func makeSUT() -> URLSessionHTTPClient {
         let sut = URLSessionHTTPClient()
